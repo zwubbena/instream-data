@@ -1,2 +1,2 @@
-# Instream-Data-SAS
+# SAS-Instream-Data
 Instream Data in SAS
