@@ -57,7 +57,9 @@ data = """ID,Title,Year
 df = pd.read_csv(StringIO(data))
 print(df)
 ```
-> [!Note] Python does not have true native inline data support like SAS. Instead, we simulate a file using `io.StringIO`.
+
+> [!NOTE]
+> Python does not have true native inline data support like SAS. Instead, we simulate a file using `io.StringIO`.
 
 ---
 
