@@ -2,73 +2,121 @@
 
 ## Overview
 
-Instream data refers to data that is included directly within a script or program file, rather than being read from an external file. This approach is especially useful for:
+Instream data refers to data embedded directly within a script or program file, rather than being read from an external data file. This method is useful when:
 
-- Educational examples and tutorials
+- Teaching/educational examples and tutorials
 - Testing and debugging scripts
-- Demonstrating logic on a small dataset
+- Test/demonstrating logic with small datasets
+- Saring reproducible examples without external file dependencies
 
-This repository provides examples in both **SAS** and **Python** for how to use instream data, with a consistent dataset used across both languages.
-
----
-
-## Dataset Used
-
-The following simple dataset is used to demonstrate instream data loading:
-
-| ID | Name     | Age |
-|----|----------|-----|
-| 1  | Alice    | 34  |
-| 2  | Bob      | 45  |
-| 3  | Charlie  | 29  |
-| 4  | Denise   | 42  |
-| 5  | Edward   | 23  |
+This repository shows how to use instream data in **SAS** and **Python** using the same dataset of six classic movies.
 
 ---
 
-## Python: Using `io.StringIO`
+## Dataset
 
-Python does not have built-in support for inline data like SAS. Instead, we use the `io.StringIO` module to simulate reading from a file.
+The following dataset is used to show instream data loading:
 
-### Pros
-- Great for testing and examples
-- Portable and avoids temporary file creation
+| ID | Title               | Year |
+|----|---------------------|------|
+| 01  | The Big Lebowski    | 1998 |
+| 02  | Happy Gilmore       | 1996 |
+| 03  | Kindergarten Cop    | 1990 |
+| 04  | Good Will Hunting   | 1997 |
+| 05  | Pretty Woman        | 1990 |
+| 06  | Groundhog Day       | 1993 |
+| 07  | Twister             | 1996 |
+| 08  | Sphere              | 1998 |
+| 09  | Home Alone          | 1990 |
 
-### Cons
-- Not practical for large data
-- Not a substitute for persistent storage
+## Using Instream Data: SAS and Python
 
----
-
-## SAS: Using `DATALINES`
-
-SAS supports instream data via the `DATALINES` or `CARDS` keyword, allowing you to define datasets inline.
-
-### Pros
-- Simple and readable
-- Very common for demos and testing
-
-### Cons
-- Not intended for large-scale production data
-- Manual editing required for changes
+Instream data is useful when you want to **embed data directly inside your script** without referencing an external file. While the mechanics differ slightly between SAS and Python, the intent is the same: make small, readable datasets easily accessible in a self-contained program.
 
 ---
 
-## When *Not* to Use Instream Data
+### 🟣 Python Example (`StringIO`)
 
-- Large datasets better suited for CSV, Excel, or databases
-- When data is maintained and updated separately
-- When working in production environments where version control of data is critical
+In Python, the `io.StringIO` class simulates file input, making it ideal for loading instream text data. 
+
+```python
+from io import StringIO
+import pandas as pd
+
+data = """ID,Title,Year
+1,The Big Lebowski,1998
+2,Happy Gilmore,1996
+3,Kindergarten Cop,1990
+4,Good Will Hunting,1997
+5,Pretty Woman,1990
+6,Groundhog Day,1993
+7,Twister,1996
+8,Sphere,1998
+9,Home Alone,1990"""
+
+df = pd.read_csv(StringIO(data))
+print(df)
+```
+> [!Note] Python does not have true native inline data support like SAS. Instead, we simulate a file using `io.StringIO`.
 
 ---
 
-## Example Output
+### 🔵 SAS Example (DATALINES)
 
-Both scripts print or display the loaded data so you can visually confirm that the instream data is loaded and parsed correctly.
+In SAS, `DATALINES` is a built-in feature that allows you to define inline data rows, typically with a preceding `input` statement.
+
+```sas
+data movies;
+    infile datalines dlm='|' dsd;
+    input ID Title : $50. Year;
+    datalines;
+1|The Big Lebowski|1998
+2|Happy Gilmore|1996
+3|Kindergarten Cop|1990
+4|Good Will Hunting|1997
+5|Pretty Woman|1990
+6|Groundhog Day|1993
+7|Twister|1996
+8|Sphere|1998
+9|Home Alone|1990
+;
+run;
+
+title "Instream Movie Data in SAS";
+proc print data=movies noobs label;
+    label 
+        ID = "Movie ID"
+        Title = "Title"
+        Year = "Release Year";
+run;
+```
+---
+
+## ✅ When to Use Instream Data
+
+These use cases apply to both SAS and Python:
+
+- Small, self-contained examples for tutorials or documentation  
+- Prototyping or testing logic before scaling up  
+- Educational exercises and reproducible demonstrations  
+- Debugging workflows where external file dependencies are a burden  
 
 ---
 
-## Files
+## ❌ When NOT to Use Instream Data
 
-- `instream_data.sas` — SAS program using `DATALINES`
-- `instream_data.py` — Python script using `StringIO`
+Avoid instream data for:
+
+- Large or dynamic datasets that change over time  
+- Production systems where external sources are standard  
+- Scenarios requiring version control or team-managed data  
+- ETL pipelines needing automation and scalability
+
+---
+
+## Output Files
+
+Each example script prints or outputs a formatted table showing the instream data successfully loaded and parsed correctly.
+
+- `instream_data.py` – Python script using `StringIO`
+- `instream_data.sas` – SAS program using `DATALINES`
