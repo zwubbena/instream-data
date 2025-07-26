@@ -2,7 +2,8 @@
 
 ## Overview
 
-Instream data refers to data embedded directly within a script or program file, rather than being read from an external data file. This method is useful when:
+Instream data refers to data embedded directly within a script or program file, rather than being read from an external data file. 
+This method is useful when:
 
 - Teaching/educational examples and tutorials
 - Testing and debugging scripts
