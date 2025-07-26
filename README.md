@@ -40,22 +40,26 @@ Instream data is useful when you want to **embed data directly inside your scrip
 In Python, the `io.StringIO` class simulates file input, making it ideal for loading instream text data. 
 
 ```python
+#Inline tabular text data
 from io import StringIO
 import pandas as pd
 
 data = """ID,Title,Year
-1,The Big Lebowski,1998
-2,Happy Gilmore,1996
-3,Kindergarten Cop,1990
-4,Good Will Hunting,1997
-5,Pretty Woman,1990
-6,Groundhog Day,1993
-7,Twister,1996
-8,Sphere,1998
-9,Home Alone,1990"""
+01,The Big Lebowski,1998
+02,Happy Gilmore,1996
+03,Kindergarten Cop,1990
+04,Good Will Hunting,1997
+05,Pretty Woman,1990
+06,Groundhog Day,1993
+07,Twister,1996
+08,Sphere,1998
+09,Home Alone,1990"""
 
-df = pd.read_csv(StringIO(data))
-print(df)
+# Read ID as string to preserve leading zeros
+df = pd.read_csv(StringIO(data), dtype={'ID': str})
+
+print("Instream Movie Data with Leading Zeros in ID:")
+print(df.to_string(index=False))
 ```
 
 > [!NOTE]
@@ -63,28 +67,30 @@ print(df)
 
 ---
 
-### 🔵 SAS Example (DATALINES)
+### 🔵 SAS Example (`datalines`)
 
-In SAS, `DATALINES` is a built-in feature that allows you to define inline data rows, typically with a preceding `input` statement.
+In SAS, `datalines` is a built-in feature that allows you to define inline data rows, typically with a preceding `input` statement.
 
 ```sas
+/* Inline tabular text data */
 data movies;
     infile datalines dlm='|' dsd;
-    input ID Title : $50. Year;
+    length ID $2 Title $50 Year 4;
+    input ID $ Title : $50. Year;
     datalines;
-1|The Big Lebowski|1998
-2|Happy Gilmore|1996
-3|Kindergarten Cop|1990
-4|Good Will Hunting|1997
-5|Pretty Woman|1990
-6|Groundhog Day|1993
-7|Twister|1996
-8|Sphere|1998
-9|Home Alone|1990
+01|The Big Lebowski|1998
+02|Happy Gilmore|1996
+03|Kindergarten Cop|1990
+04|Good Will Hunting|1997
+05|Pretty Woman|1990
+06|Groundhog Day|1993
+07|Twister|1996
+08|Sphere|1998
+09|Home Alone|1990
 ;
 run;
 
-title "Instream Movie Data in SAS";
+title "Instream Movie Data with Leading Zeros in ID (SAS)";
 proc print data=movies noobs label;
     label 
         ID = "Movie ID"
