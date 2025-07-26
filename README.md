@@ -63,7 +63,7 @@ print(df.to_string(index=False))
 ```
 
 > [!NOTE]
-> Python does not have true native inline data support like SAS. Instead, we simulate a file using `io.StringIO`.
+> Python does not have true native inline data support like SAS. Instead, an instream data file is simulated using `io.StringIO`.
 
 ---
 
