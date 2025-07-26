@@ -38,10 +38,9 @@ Instream data is useful when you want to **embed data directly inside your scrip
 
 ### 🟣 Python Example (`StringIO`)
 
-In Python, the `io.StringIO` class simulates file input, making it ideal for loading instream text data. 
+In Python, the `io.StringIO` class simulates file input, making it ideal for loading instream text data. The following example shows tabular data defined inline as a multiline string.
 
 ```python
-#Inline tabular text data
 from io import StringIO
 import pandas as pd
 
@@ -70,10 +69,9 @@ print(df.to_string(index=False))
 
 ### 🔵 SAS Example (`datalines`)
 
-In SAS, `datalines` is a built-in feature that allows you to define inline data rows, typically with a preceding `input` statement.
+In SAS, `datalines` is a built-in feature that allows you to define instream data directly within a program, typically following an 'input' statement that defines the variable structure. The following example shows how to use instream data to simulate a small tabular dataset.
 
 ```sas
-/* Inline tabular text data */
 data movies;
     infile datalines dlm='|' dsd;
     length ID $2 Title $50 Year 4;
