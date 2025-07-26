@@ -10,7 +10,7 @@ This method is useful when:
 - Test/demonstrating logic with small datasets
 - Saring reproducible examples without external file dependencies
 
-This repository shows how to use instream data in **SAS** and **Python** using the same dataset of six classic movies.
+This repository shows how to use instream data in both **SAS** and **Python**.
 
 ---
 
