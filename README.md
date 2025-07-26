@@ -117,7 +117,7 @@ Avoid instream data for:
 - Large or dynamic datasets that change over time  
 - Production systems where external sources are standard  
 - Scenarios requiring version control or team-managed data  
-- ETL pipelines needing automation and scalability
+- Extract, Transform, Load (ETL) pipelines needing automation and scalability
 
 ---
 
